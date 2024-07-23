@@ -97,19 +97,6 @@ export function useQuiz() {
     }
   }
 
-  function restartQuiz() {
-    selectedCategory.value = "";
-    selectedDifficulty.value = "";
-    quizStarted.value = false;
-    showScore.value = false;
-    detailedResults.value = [];
-    selectedOption.value = null;
-    autoSelectedOption.value = false;
-    currentQuestionIndex.value = 0;
-    questions.value = [];
-    timer.reset();
-  }
-
   onUnmounted(() => timer.stop());
 
   return {
@@ -130,7 +117,6 @@ export function useQuiz() {
     startQuiz,
     nextQuestion,
     checkAnswer,
-    restartQuiz,
   };
 }
 

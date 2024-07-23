@@ -71,7 +71,7 @@
       </div>
     </div>
     <button
-      @click="$emit('restart-quiz')"
+      @click="reloadPage"
       class="w-full bg-teal-600 text-white py-4 rounded-lg shadow-lg hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-opacity-50 transition-transform transform hover:scale-105 mt-8 text-xl"
     >
       Restart Quiz
@@ -95,5 +95,7 @@ defineProps({
   },
 });
 
-const emit = defineEmits(["restart-quiz"]);
+const reloadPage = () => {
+  window.location.reload();
+};
 </script>

@@ -26,7 +26,6 @@
       :score="score"
       :totalQuestions="questions.length"
       :detailedResults="detailedResults"
-      @restart-quiz="restartQuiz"
     />
   </div>
 </template>
@@ -54,7 +53,6 @@ const {
   startQuiz,
   nextQuestion,
   checkAnswer,
-  restartQuiz,
   autoSelectedOption,
 } = useQuiz();
 </script>

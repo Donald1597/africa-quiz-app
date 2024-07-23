@@ -15,7 +15,8 @@ export function useQuiz() {
   const score = ref(0);
   const showNextButton = ref(false);
   const selectedOption = ref(null);
-  const timer = useTimer(15);
+  const autoSelectedOption = ref(false);
+  const timer = useTimer(5, handleTimerExpire);
   const detailedResults = ref([]);
   const quizStarted = ref(false);
   const selectedCategory = ref("");
@@ -50,24 +51,38 @@ export function useQuiz() {
     timer.start();
     quizStarted.value = true;
     selectedOption.value = null;
+    autoSelectedOption.value = false;
   }
 
-  function checkAnswer(option) {
+  function handleTimerExpire() {
+    if (!showNextButton.value && selectedOption.value === null) {
+      const correctAnswer = currentQuestion.value.correct_answer;
+      checkAnswer(correctAnswer, true); // Auto-select correct answer and mark as not selected by user
+    }
+  }
+
+  function checkAnswer(option, autoSelected = false) {
     selectedOption.value = option;
     const correctAnswer = currentQuestion.value.correct_answer;
     const isCorrect = option === correctAnswer;
 
+    if (!autoSelected) {
+      // Award points only if the user selected the answer
+      if (isCorrect) score.value++;
+    }
+
     detailedResults.value.push({
       question: currentQuestion.value.question,
-      userAnswer: option,
+      userAnswer: autoSelected ? "No Answer" : option,
       correctAnswer,
       correct: isCorrect,
     });
 
-    if (isCorrect) score.value++;
-
     showNextButton.value = true;
     timer.stop();
+
+    // Pass information on the auto selected option
+    autoSelectedOption.value = autoSelected;
   }
 
   function nextQuestion() {
@@ -78,6 +93,7 @@ export function useQuiz() {
     } else {
       showNextButton.value = false;
       selectedOption.value = null;
+      autoSelectedOption.value = false;
       timer.reset();
     }
   }
@@ -89,6 +105,7 @@ export function useQuiz() {
     showScore.value = false;
     detailedResults.value = [];
     selectedOption.value = null;
+    autoSelectedOption.value = false;
     currentQuestionIndex.value = 0;
     questions.value = [];
     timer.reset();
@@ -102,6 +119,7 @@ export function useQuiz() {
     score,
     showNextButton,
     selectedOption,
+    autoSelectedOption,
     timer: timer.value,
     detailedResults,
     quizStarted,
@@ -118,7 +136,7 @@ export function useQuiz() {
 }
 
 // Timer Composable
-function useTimer(initialTime) {
+function useTimer(initialTime, onExpire) {
   const timer = ref(initialTime);
   const timerInterval = ref(null);
 
@@ -128,6 +146,7 @@ function useTimer(initialTime) {
         timer.value--;
       } else {
         clearInterval(timerInterval.value);
+        if (onExpire) onExpire();
       }
     }, 1000);
   };

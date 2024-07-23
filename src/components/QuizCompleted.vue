@@ -7,9 +7,9 @@
     </h2>
     <h3 class="text-3xl text-gray-800 dark:text-gray-200 mb-8">
       Your score is
-      <span class="font-bold text-teal-600 dark:text-teal-400">
-        {{ score }}
-      </span>
+      <span class="font-bold text-teal-600 dark:text-teal-400">{{
+        score
+      }}</span>
       out of {{ totalQuestions }}
     </h3>
     <div v-if="detailedResults.length" class="mt-12">
@@ -32,11 +32,15 @@
             Your Answer:
             <span
               :class="{
-                'text-green-600 dark:text-green-400': result.correct,
-                'text-red-600 dark:text-red-400': !result.correct,
+                'text-green-600 dark:text-green-400':
+                  result.correct && result.userAnswer !== 'No Answer',
+                'text-red-600 dark:text-red-400':
+                  !result.correct && result.userAnswer !== 'No Answer',
+                'text-gray-400 dark:text-gray-600':
+                  result.userAnswer === 'No Answer',
               }"
             >
-              {{ result.userAnswer }}
+              {{ result.userAnswer === null ? "No Answer" : result.userAnswer }}
             </span>
           </div>
           <div class="text-gray-600 dark:text-gray-400 mb-2">
@@ -50,9 +54,17 @@
               :class="{
                 'text-green-600 dark:text-green-400': result.correct,
                 'text-red-600 dark:text-red-400': !result.correct,
+                'text-gray-400 dark:text-gray-600':
+                  result.userAnswer === 'No Answer',
               }"
             >
-              {{ result.correct ? "Correct" : "Incorrect" }}
+              {{
+                result.userAnswer === "No Answer"
+                  ? "No Answer"
+                  : result.correct
+                  ? "Correct"
+                  : "Incorrect"
+              }}
             </span>
           </div>
         </div>

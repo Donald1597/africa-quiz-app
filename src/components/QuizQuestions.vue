@@ -31,7 +31,10 @@
               showNextButton &&
               option !== currentQuestion.correct_answer &&
               option === selectedOption,
-            'bg-gray-200 text-gray-800': !showNextButton,
+            'bg-orange-600 text-white':
+              autoSelectedOption && option === selectedOption,
+            'bg-gray-200 text-gray-800':
+              !showNextButton && option !== selectedOption,
           }"
           class="block w-full text-left py-4 px-6 rounded-lg shadow-lg hover:bg-opacity-80 transition-transform transform hover:scale-105 text-lg"
           :disabled="showNextButton"
@@ -71,6 +74,10 @@ defineProps({
   selectedOption: {
     type: [String, null],
     default: null,
+  },
+  autoSelectedOption: {
+    type: Boolean,
+    default: false,
   },
 });
 

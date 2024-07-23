@@ -16,6 +16,7 @@
       :progress="progress"
       :showNextButton="showNextButton"
       :selectedOption="selectedOption"
+      :autoSelectedOption="autoSelectedOption"
       @check-answer="checkAnswer"
       @next-question="nextQuestion"
     />
@@ -54,5 +55,6 @@ const {
   nextQuestion,
   checkAnswer,
   restartQuiz,
+  autoSelectedOption,
 } = useQuiz();
 </script>

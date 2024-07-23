@@ -75,13 +75,12 @@ export function useQuiz() {
       question: currentQuestion.value.question,
       userAnswer: autoSelected ? "No Answer" : option,
       correctAnswer,
-      correct: isCorrect,
+      correct: autoSelected ? null : isCorrect,
     });
 
     showNextButton.value = true;
     timer.stop();
 
-    // Pass information on the auto selected option
     autoSelectedOption.value = autoSelected;
   }
 

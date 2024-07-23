@@ -59,7 +59,7 @@
               }"
             >
               {{
-                result.userAnswer === "No Answer"
+                result.correct === null
                   ? "No Answer"
                   : result.correct
                   ? "Correct"

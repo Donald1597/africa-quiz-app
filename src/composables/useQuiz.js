@@ -16,7 +16,7 @@ export function useQuiz() {
   const showNextButton = ref(false);
   const selectedOption = ref(null);
   const autoSelectedOption = ref(false);
-  const timer = useTimer(5, handleTimerExpire);
+  const timer = useTimer(10, handleTimerExpire);
   const detailedResults = ref([]);
   const quizStarted = ref(false);
   const selectedCategory = ref("");

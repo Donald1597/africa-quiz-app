@@ -16,7 +16,7 @@ export function useQuiz() {
   const showNextButton = ref(false);
   const selectedOption = ref(null);
   const autoSelectedOption = ref(false);
-  const timer = useTimer(10, handleTimerExpire);
+  const timer = useTimer(25, handleTimerExpire);
   const detailedResults = ref([]);
   const quizStarted = ref(false);
   const selectedCategory = ref("");
@@ -37,13 +37,19 @@ export function useQuiz() {
     showScore.value = false;
 
     const selectedQuiz = quizzes[selectedCategory.value];
-    questions.value = selectedQuiz
+    const filteredQuestions = selectedQuiz
       .filter((q) => q.difficulty === selectedDifficulty.value)
       .map((q) => ({
         question: q.question,
         options: q.options.sort(() => Math.random() - 0.5),
         correct_answer: q.correct_answer,
       }));
+
+    // Shuffle the filtered questions
+    filteredQuestions.sort(() => Math.random() - 0.5);
+
+    // Take the first 10 questions (or fewer if there aren't 10)
+    questions.value = filteredQuestions.slice(0, 10);
 
     currentQuestionIndex.value = 0;
     score.value = 0;

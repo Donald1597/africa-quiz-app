@@ -41,12 +41,12 @@ export function useQuiz() {
       .filter((q) => q.difficulty === selectedDifficulty.value)
       .map((q) => ({
         question: q.question,
-        options: q.options.sort(() => Math.random() - 0.5),
+        options: shuffleArray(q.options),
         correct_answer: q.correct_answer,
       }));
 
     // Shuffle the filtered questions
-    filteredQuestions.sort(() => Math.random() - 0.5);
+    shuffleArray(filteredQuestions);
 
     // Take the first 10 questions (or fewer if there aren't 10)
     questions.value = filteredQuestions.slice(0, 10);
@@ -54,7 +54,7 @@ export function useQuiz() {
     currentQuestionIndex.value = 0;
     score.value = 0;
     detailedResults.value = [];
-    timer.start();
+    timer.reset();
     quizStarted.value = true;
     selectedOption.value = null;
     autoSelectedOption.value = false;
@@ -101,6 +101,14 @@ export function useQuiz() {
       autoSelectedOption.value = false;
       timer.reset();
     }
+  }
+
+  function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
   }
 
   onUnmounted(() => timer.stop());
@@ -150,5 +158,7 @@ function useTimer(initialTime, onExpire) {
     start();
   };
 
-  return { value: timer, start, stop, reset };
+  const pause = () => clearInterval(timerInterval.value);
+
+  return { value: timer, start, stop, reset, pause };
 }

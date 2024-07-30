@@ -30,7 +30,7 @@
       <select
         v-model="localSelectedCategory"
         id="category"
-        class="block w-full border-gray-300 dark:border-gray-700 rounded-lg shadow-sm bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 text-lg py-2 px-4 hover:border-indigo-600 focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50 cursor-pointer appearance-none"
+        class="block w-full border-gray-300 dark:border-gray-700 rounded-lg shadow-sm bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 text-lg py-2 px-4 hover:border-indigo-600 focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50 cursor-pointer appearance-none transition-transform transform hover:scale-105"
       >
         <option value="">Select a category</option>
         <option value="africa">Africa</option>
@@ -50,7 +50,7 @@
       <select
         v-model="localSelectedDifficulty"
         id="difficulty"
-        class="block w-full border-gray-300 dark:border-gray-700 rounded-lg shadow-sm bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 text-lg py-2 px-4 hover:border-indigo-600 focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50 cursor-pointer appearance-none"
+        class="block w-full border-gray-300 dark:border-gray-700 rounded-lg shadow-sm bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 text-lg py-2 px-4 hover:border-indigo-600 focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50 cursor-pointer appearance-none transition-transform transform hover:scale-105"
       >
         <option value="">Select difficulty</option>
         <option value="easy">Easy</option>
